@@ -5,9 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StandingDeskPartner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600
-        " Width="450">
-    <Grid>
+        Title="MainWindow" Height="500" Width="350" MinHeight="500" MinWidth="350">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="135" MinHeight="135"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Grid x:Name="TimingPanel" Grid.Row="0" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <Label HorizontalContentAlignment="Center">Start Time:</Label>
+                <TextBox x:Name="StartTimeTextBox" Width="70"></TextBox>
+                <Label HorizontalContentAlignment="Center">End Time:</Label>
+                <TextBox x:Name="EndTimeTextBox" Width="70"></TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <Label HorizontalContentAlignment="Center">Minutes Standing:</Label>
+                <TextBox x:Name="MinStandingTextBox" Width="70"></TextBox>
+                <Label HorizontalContentAlignment="Center">Interval:</Label>
+                <TextBox x:Name="IntervalTextBox" Width="70"></TextBox>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Margin="10">
+            <Label>Specific Standing Times:</Label>
+            <ListBox>
+                
+            </ListBox>
+        </StackPanel>
     </Grid>
 </Window>
