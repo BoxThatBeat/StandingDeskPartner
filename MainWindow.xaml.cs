@@ -24,5 +24,10 @@ namespace StandingDeskPartner
         {
             InitializeComponent();
         }
+
+        private void AddNewStandingTime_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
