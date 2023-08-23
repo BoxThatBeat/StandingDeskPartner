@@ -1,11 +1,11 @@
-﻿<Window x:Class="StandingDeskPartner.MainWindow"
+﻿<Window x:Class="StandingDeskPartner.Window1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StandingDeskPartner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="350" MinHeight="500" MinWidth="350">
+        Title="Window1" Height="450" Width="800">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="135" MinHeight="135"/>
@@ -54,10 +54,10 @@
 
             <ListBox x:Name="ListOfStandingTimes">
                 <ListBox.ItemTemplate>
-                    
+
                 </ListBox.ItemTemplate>
             </ListBox>
-            
+
         </StackPanel>
 
         <Grid x:Name="SettingsFooter" Grid.Row="3" Margin="10">
@@ -65,10 +65,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Button Grid.Column="0" x:Name="SaveSettings" Content="Save" Margin="5,0,5,0"></Button>
             <Button Grid.Column="1" x:Name="CancelSettings" Content="Cancel" Margin="5,0,5,0"></Button>
         </Grid>
-        
+
     </Grid>
 </Window>

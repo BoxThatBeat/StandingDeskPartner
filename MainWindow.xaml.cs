@@ -27,7 +27,13 @@ namespace StandingDeskPartner
 
         private void AddNewStandingTime_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: Ensure that it is a valid date format
 
+            if (!string.IsNullOrEmpty(StandingTimeTextBox.Text))
+            {
+                ListOfStandingTimes.Items.Add(" - " + StandingTimeTextBox.Text);
+                StandingTimeTextBox.Clear();
+            }
         }
     }
 }
