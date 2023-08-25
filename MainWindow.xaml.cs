@@ -25,15 +25,10 @@ namespace StandingDeskPartner
             InitializeComponent();
         }
 
-        private void AddNewStandingTime_Click(object sender, RoutedEventArgs e)
+        private void OpenSettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Ensure that it is a valid date format
-
-            if (!string.IsNullOrEmpty(StandingTimeTextBox.Text))
-            {
-                ListOfStandingTimes.Items.Add(" - " + StandingTimeTextBox.Text);
-                StandingTimeTextBox.Clear();
-            }
+            SettingsView settingsView = new SettingsView();
+            settingsView.Show();
         }
     }
 }

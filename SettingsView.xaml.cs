@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StandingDeskPartner.Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,22 @@ namespace StandingDeskPartner
         public SettingsView()
         {
             InitializeComponent();
-            DataContext = new SettingsViewModel();
+            
+            ISettingsRepo repo = new SettingsRepo();
+
+            SettingsModel settingsModel = repo.GetSettings();
+
+            this.DataContext = settingsModel;
+        }
+
+        private void AddNewStandingTime_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Ensure that it is a valid date format
+            if (!string.IsNullOrEmpty(StandingTimeTextBox.Text))
+            {
+                ListOfStandingTimes.Items.Add(" - " + StandingTimeTextBox.Text);
+                StandingTimeTextBox.Clear();
+            }
         }
     }
 }
