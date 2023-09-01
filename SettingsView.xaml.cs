@@ -20,15 +20,38 @@ namespace StandingDeskPartner
     /// </summary>
     public partial class SettingsView : Window
     {
-        public SettingsView()
+        ISettingsRepo SettingsRepo { get; set; }
+
+        //SettingsModel model { get; set; }
+
+        public SettingsView(ISettingsRepo repo)
         {
             InitializeComponent();
             
-            ISettingsRepo repo = new SettingsRepo();
+            this.SettingsRepo = repo;
 
-            SettingsModel settingsModel = repo.GetSettings();
+            //this.model = new SettingsModel();
+            this.DataContext = new SettingsModel();
+        }
 
-            this.DataContext = settingsModel;
+        protected override async void OnContentRendered(EventArgs e)
+        {
+            SettingsModel defaultModel = new SettingsModel(
+                new DateTime(2021, 1, 1, 9, 0, 0),
+                new DateTime(2021, 1, 1, 17, 0, 0),
+                60,
+                60,
+                new List<DateTime>()
+                {
+                    new DateTime(2021, 1, 1, 10, 0, 0),
+                    new DateTime(2021, 1, 1, 14, 0, 0)
+                });
+
+            //TODO remove
+            await this.SettingsRepo.SaveSettingsAsync(defaultModel);
+
+            this.DataContext = await this.SettingsRepo.GetSettingsAsync();
+            Console.WriteLine("Settings loaded");
         }
 
         private void AddNewStandingTime_Click(object sender, RoutedEventArgs e)
@@ -39,6 +62,22 @@ namespace StandingDeskPartner
                 ListOfStandingTimes.Items.Add(" - " + StandingTimeTextBox.Text);
                 StandingTimeTextBox.Clear();
             }
+        }
+
+        private void SaveSettings_Click(object sender, RoutedEventArgs e)
+        {
+            // Validate settings
+
+            // Save to repo
+
+
+            // Close window
+            this.Close();
+        }
+
+        private void CancelSettings_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

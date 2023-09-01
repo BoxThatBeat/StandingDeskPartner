@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace StandingDeskPartner.Settings
 {
-    interface ISettingsRepo
+    public interface ISettingsRepo
     {
-        public void SaveSettings(SettingsModel model);
+        public Task SaveSettingsAsync(SettingsModel model);
 
-        public SettingsModel GetSettings();
+        public Task<SettingsModel> GetSettingsAsync();
     }
 }

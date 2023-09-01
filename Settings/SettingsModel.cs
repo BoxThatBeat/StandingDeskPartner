@@ -9,10 +9,21 @@ namespace StandingDeskPartner.Settings
 {
     public class SettingsModel
     {
-        public DateTime StartTime;
-        public DateTime EndTime;
-        public int MinutesStanding;
-        public int MinutesInterval;
-        public ObservableCollection<DateTime> SpecificTimes;
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int MinutesStanding { get; set; }
+        public int MinutesStandingInterval { get; set; }
+        public List<DateTime>? SpecificTimes { get; set; }
+
+        public SettingsModel() { }
+
+        public SettingsModel(DateTime startTime, DateTime endTime, int minutesStanding, int minutesStandingInterval, List<DateTime> specificTimes)
+        {
+            StartTime = startTime;
+            EndTime = endTime;
+            MinutesStanding = minutesStanding;
+            MinutesStandingInterval = minutesStandingInterval;
+            SpecificTimes = specificTimes;
+        }
     }
 }
