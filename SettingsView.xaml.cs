@@ -1,6 +1,7 @@
 ﻿using StandingDeskPartner.Settings;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,40 +37,27 @@ namespace StandingDeskPartner
 
         protected override async void OnContentRendered(EventArgs e)
         {
-            SettingsModel defaultModel = new SettingsModel(
-                new DateTime(2021, 1, 1, 9, 0, 0),
-                new DateTime(2021, 1, 1, 17, 0, 0),
-                60,
-                60,
-                new List<DateTime>()
-                {
-                    new DateTime(2021, 1, 1, 10, 0, 0),
-                    new DateTime(2021, 1, 1, 14, 0, 0)
-                });
-
-            //TODO remove
-            await this.SettingsRepo.SaveSettingsAsync(defaultModel);
-
             this.DataContext = await this.SettingsRepo.GetSettingsAsync();
-            Console.WriteLine("Settings loaded");
+            Debug.WriteLine("Settings loaded");
         }
 
         private void AddNewStandingTime_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Ensure that it is a valid date format
+
             if (!string.IsNullOrEmpty(StandingTimeTextBox.Text))
             {
-                ListOfStandingTimes.Items.Add(" - " + StandingTimeTextBox.Text);
+                ((SettingsModel)this.DataContext)?.SpecificTimes.Add(new SpecificTime(DateTime.Parse(StandingTimeTextBox.Text)));
                 StandingTimeTextBox.Clear();
             }
         }
 
-        private void SaveSettings_Click(object sender, RoutedEventArgs e)
+        private async void SaveSettings_Click(object sender, RoutedEventArgs e)
         {
-            // Validate settings
+            // TODO: Validate settings
 
-            // Save to repo
-
+            // Save settings
+            await this.SettingsRepo.SaveSettingsAsync((SettingsModel)this.DataContext);
 
             // Close window
             this.Close();
@@ -77,7 +65,16 @@ namespace StandingDeskPartner
 
         private void CancelSettings_Click(object sender, RoutedEventArgs e)
         {
+            // Close window without saving
+            this.Close();
+        }
 
+        private void removeStandingTimeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            SpecificTime time = (SpecificTime)btn.DataContext;
+            ((SettingsModel)this.DataContext)?.SpecificTimes.Remove(time);
         }
     }
 }

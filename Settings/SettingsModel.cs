@@ -13,11 +13,14 @@ namespace StandingDeskPartner.Settings
         public DateTime EndTime { get; set; }
         public int MinutesStanding { get; set; }
         public int MinutesStandingInterval { get; set; }
-        public List<DateTime>? SpecificTimes { get; set; }
+        public List<SpecificTime> SpecificTimes { get; set; }
 
-        public SettingsModel() { }
+        public SettingsModel() {
+        
+            SpecificTimes = new List<SpecificTime>();
+        }
 
-        public SettingsModel(DateTime startTime, DateTime endTime, int minutesStanding, int minutesStandingInterval, List<DateTime> specificTimes)
+        public SettingsModel(DateTime startTime, DateTime endTime, int minutesStanding, int minutesStandingInterval, List<SpecificTime> specificTimes)
         {
             StartTime = startTime;
             EndTime = endTime;

@@ -25,16 +25,16 @@
 
             <StackPanel Grid.Column="0">
                 <Label HorizontalContentAlignment="Center">Start Time:</Label>
-                <TextBox x:Name="StartTimeTextBox" Width="70"></TextBox>
+                <TextBox x:Name="StartTimeTextBox" Width="70" Text="{Binding Path=StartTime, StringFormat={}{0:HH:mm}}"></TextBox>
                 <Label HorizontalContentAlignment="Center">End Time:</Label>
-                <TextBox x:Name="EndTimeTextBox" Width="70"></TextBox>
+                <TextBox x:Name="EndTimeTextBox" Width="70" Text="{Binding Path=EndTime, StringFormat={}{0:HH:mm}}"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Column="1">
                 <Label HorizontalContentAlignment="Center">Minutes Standing:</Label>
-                <TextBox x:Name="MinStandingTextBox" Width="70"></TextBox>
+                <TextBox x:Name="MinStandingTextBox" Width="70" Text="{Binding Path=MinutesStanding}"></TextBox>
                 <Label HorizontalContentAlignment="Center">Interval:</Label>
-                <TextBox x:Name="IntervalTextBox" Width="70"></TextBox>
+                <TextBox x:Name="IntervalTextBox" Width="70" Text="{Binding Path=MinutesStandingInterval}"></TextBox>
             </StackPanel>
         </Grid>
 
@@ -51,7 +51,19 @@
                 <Button Grid.Column="2" Content="Add Time" Margin="5,0,5,0" x:Name="AddNewStandingTime" Click="AddNewStandingTime_Click"></Button>
             </Grid>
 
-            <ListBox x:Name="ListOfStandingTimes">
+            <ListBox x:Name="ListOfStandingTimes" HorizontalContentAlignment="Stretch" ItemsSource="{Binding SpecificTimes, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Time, StringFormat={}{0:HH:mm}}" />
+                            <Button x:Name="removeStandingTimeBtn" Grid.Column="1" Content="Remove" Click="removeStandingTimeBtn_Click"></Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
 
         </StackPanel>
