@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace StandingDeskPartner.Settings
 {
@@ -10,7 +11,11 @@ namespace StandingDeskPartner.Settings
         public DateTime StartTime
         {
             get { return _startTime; }
-            set { _startTime = value; }
+            set 
+            { 
+                _startTime = value;
+                OnPropertyChanged();
+            }
         }
 
         private DateTime _endTime;
@@ -18,7 +23,11 @@ namespace StandingDeskPartner.Settings
         public DateTime EndTime
         {
             get { return _endTime; }
-            set { _endTime = value; }
+            set 
+            { 
+                _endTime = value;
+                OnPropertyChanged();
+            }
         }
 
         private int _minutesStanding;
@@ -26,7 +35,11 @@ namespace StandingDeskPartner.Settings
         public int MinutesStanding
         {
             get { return _minutesStanding; }
-            set { _minutesStanding = value; }
+            set 
+            { 
+                _minutesStanding = value;
+                OnPropertyChanged();
+            }
         }
 
         private int _minutesStandingInterval;
@@ -34,23 +47,31 @@ namespace StandingDeskPartner.Settings
         public int MinutesStandingInterval
         {
             get { return _minutesStandingInterval; }
-            set { _minutesStandingInterval = value; }
+            set 
+            { 
+                _minutesStandingInterval = value;
+                OnPropertyChanged();
+            }
         }
 
-        private List<SpecificTime> _specificTimes;
+        private ObservableCollection<SpecificTime> _specificTimes;
 
-        public List<SpecificTime> SpecificTimes
+        public ObservableCollection<SpecificTime> SpecificTimes
         {
             get { return _specificTimes; }
-            set { _specificTimes = value; }
+            set 
+            { 
+                _specificTimes = value;
+                OnPropertyChanged();
+            }
         }
 
         public SettingsModel() {
 
-            _specificTimes = new List<SpecificTime>();
+            _specificTimes = new ObservableCollection<SpecificTime>();
         }
 
-        public SettingsModel(DateTime startTime, DateTime endTime, int minutesStanding, int minutesStandingInterval, List<SpecificTime> specificTimes)
+        public SettingsModel(DateTime startTime, DateTime endTime, int minutesStanding, int minutesStandingInterval, ObservableCollection<SpecificTime> specificTimes)
         {
             _startTime = startTime;
             _endTime = endTime;

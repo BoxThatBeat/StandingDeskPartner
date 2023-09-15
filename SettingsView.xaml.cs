@@ -21,9 +21,10 @@ namespace StandingDeskPartner
     /// </summary>
     public partial class SettingsView : Window
     {
+        public bool SettingsFinishedLoading = false;
+
         ISettingsRepo SettingsRepo { get; set; }
 
-        //SettingsModel model { get; set; }
 
         public SettingsView(ISettingsRepo repo)
         {
@@ -38,7 +39,7 @@ namespace StandingDeskPartner
         protected override async void OnContentRendered(EventArgs e)
         {
             this.DataContext = await this.SettingsRepo.GetSettingsAsync();
-            Debug.WriteLine("Settings loaded");
+            this.SettingsFinishedLoading = true;
         }
 
         private void AddNewStandingTime_Click(object sender, RoutedEventArgs e)
