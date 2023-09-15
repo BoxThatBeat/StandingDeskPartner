@@ -60,7 +60,7 @@
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding Time, StringFormat={}{0:HH:mm}}" />
-                            <Button x:Name="removeStandingTimeBtn" Grid.Column="1" Content="Remove" Click="removeStandingTimeBtn_Click"></Button>
+                            <Button x:Name="RemoveStandingTimeBtn" Grid.Column="1" Content="Remove" Click="RemoveStandingTimeBtn_Click"></Button>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

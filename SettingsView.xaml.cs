@@ -69,7 +69,7 @@ namespace StandingDeskPartner
             this.Close();
         }
 
-        private void removeStandingTimeBtn_Click(object sender, RoutedEventArgs e)
+        private void RemoveStandingTimeBtn_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
 
