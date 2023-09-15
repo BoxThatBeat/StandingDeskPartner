@@ -21,7 +21,9 @@ namespace StandingDeskPartner
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {        
+        public UserState CurrentState { get; set; } = UserState.OutOfOffice;
+
         ISettingsRepo Repo { get; set; }
 
         public MainWindow(ISettingsRepo repo)
@@ -34,8 +36,8 @@ namespace StandingDeskPartner
         private void OpenSettingsBtn_Click(object sender, RoutedEventArgs e)
         {
             SettingsView settingsView = new SettingsView(this.Repo);
-            settingsView.Owner = this;
-            settingsView.ShowDialog(); // Don't continue until settings window has closed
+            settingsView.Owner = this; // Don't continue until settings window has closed
+            settingsView.ShowDialog(); 
         }
     }
 }

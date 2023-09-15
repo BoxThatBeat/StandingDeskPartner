@@ -77,5 +77,10 @@ namespace StandingDeskPartner
             SpecificTime time = (SpecificTime)btn.DataContext;
             ((SettingsModel)this.DataContext)?.SpecificTimes.Remove(time);
         }
+
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StandingDeskPartner"
         mc:Ignorable="d"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="500" Width="350" MinHeight="500" MinWidth="350">
     <Grid Margin="10">
-        <Button x:Name="OpenSettingsBtn" Click="OpenSettingsBtn_Click">Open Settings</Button>
+        <Button x:Name="OpenSettingsBtn" Click="OpenSettingsBtn_Click" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Bottom" Width="26">S</Button>
     </Grid>
 </Window>
