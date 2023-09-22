@@ -39,5 +39,11 @@ namespace StandingDeskPartner
             settingsView.Owner = this; // Don't continue until settings window has closed
             settingsView.ShowDialog(); 
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove(); // Allow app to be dragged by grabbing any control
+        }
     }
 }

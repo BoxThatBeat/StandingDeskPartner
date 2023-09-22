@@ -9,8 +9,10 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="500" Width="350" MinHeight="500" MinWidth="350">
-    <Grid Margin="10">
+        Topmost="True"
+        Title="MainWindow" Height="265" Width="265" MinHeight="265" MinWidth="265" MouseDown="Window_MouseDown">
+    <Grid>
+        <Image x:Name="MainImage" Source="Images\Standing.png" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="OpenSettingsBtn" Click="OpenSettingsBtn_Click" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Bottom" Width="26">S</Button>
     </Grid>
 </Window>
