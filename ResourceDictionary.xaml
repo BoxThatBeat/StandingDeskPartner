@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Catppuccin Macchiato theme-->
+    <SolidColorBrush x:Key="Green" Color="#a6da95"/>
+    <SolidColorBrush x:Key="Text" Color="#cad3f5"/>
+    <SolidColorBrush x:Key="Subtext1" Color="#b8c0e0"/>
+    <SolidColorBrush x:Key="Subtext0" Color="#a5adcb"/>
+    <SolidColorBrush x:Key="Overlay2" Color="#939ab7"/>
+    <SolidColorBrush x:Key="Overlay1" Color="#8087a2"/>
+    <SolidColorBrush x:Key="Overlay0" Color="#6e738d"/>
+    <SolidColorBrush x:Key="Surface2" Color="#5b6078"/>
+    <SolidColorBrush x:Key="Surface1" Color="#5b6078"/>
+    <SolidColorBrush x:Key="Surface0" Color="#363a4f"/>
+    <SolidColorBrush x:Key="Base" Color="#24273a"/>
+    <SolidColorBrush x:Key="Mantle" Color="#1e2030"/>
+    <SolidColorBrush x:Key="Crust" Color="#1e2030"/>
+
+</ResourceDictionary>
