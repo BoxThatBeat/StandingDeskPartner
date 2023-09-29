@@ -21,7 +21,6 @@ namespace StandingDeskPartner
             
             this.SettingsRepo = repo;
 
-            //this.model = new SettingsModel();
             this.DataContext = new SettingsModel();
         }
 
