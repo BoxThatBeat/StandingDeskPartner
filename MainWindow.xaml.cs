@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace StandingDeskPartner
 {
@@ -30,8 +31,18 @@ namespace StandingDeskPartner
         {
             SettingsModel settings = await this.SettingsRepo.GetSettingsAsync();
 
-            string cronExpression = ConvertTimesToCronExpression(ComputeListOfStandUpTimes(settings));
-            await CreateStandUpScheduledNotifications(cronExpression, settings.StartTime, settings.EndTime, settings.MinutesStanding);
+            IScheduler scheduler = await StdSchedulerFactory.GetDefaultScheduler();
+            await scheduler.Start();
+
+            IJobDetail job = JobBuilder.Create<StandJob>()
+                .WithIdentity(StandJob.Key)
+                .Build();
+            await scheduler.AddJob(job, replace: true, storeNonDurableWhileAwaitingScheduling: true);
+
+            IList<ITrigger> triggers = GenerateTriggersFromStandingTimes(ComputeListOfStandUpTimes(settings), settings.MinutesStanding);
+
+            foreach (ITrigger trigger in triggers)
+                await scheduler.ScheduleJob(trigger);
         }
 
         private void OpenSettingsBtn_Click(object sender, RoutedEventArgs e)
@@ -49,28 +60,43 @@ namespace StandingDeskPartner
 
         private List<DateTime> ComputeListOfStandUpTimes(SettingsModel settings)
         {
-            return new List<DateTime>();
+            //TODO: use algo to determine the standing times
+
+            return new List<DateTime>()
+            {
+                 new DateTime(2023, 10, 6, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second).AddSeconds(10),
+                 new DateTime(2023, 10, 6, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second).AddSeconds(20),
+                 new DateTime(2023, 10, 6, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second).AddSeconds(30),
+            };
         }
 
-        private string ConvertTimesToCronExpression(List<DateTime> standUpTimes)
+        private string CronExpressionFromDateTime(DateTime standUpTime)
         {
-            return "1 * * ? * MON-FRI";
+            return $"{standUpTime.Second} {standUpTime.Minute} {standUpTime.Hour} ? * MON-FRI";
         }
 
-        private async Task<DateTimeOffset> CreateStandUpScheduledNotifications(string cronExpression, DateTime startTime, DateTime endTime, int minutesStanding)
+        private IList<ITrigger> GenerateTriggersFromStandingTimes(IList<DateTime> standingTimes, int minutesStanding)
         {
-            IScheduler scheduler = await StdSchedulerFactory.GetDefaultScheduler();
-            await scheduler.Start();
-            IJobDetail job = JobBuilder.Create<StandJob>().Build();
-            ITrigger trigger = TriggerBuilder.Create()
-                .WithIdentity("StandJob", "group")
-                .WithCronSchedule(cronExpression)
-                .UsingJobData("minutesStanding", minutesStanding)
+            List<ITrigger> triggers = new List<ITrigger>();
+
+            foreach (DateTime time in standingTimes)
+            {
+                string cronExpression = CronExpressionFromDateTime(time);
+                Debug.WriteLine("Scheduling standup time for: " + cronExpression);
+
+                ITrigger trigger = TriggerBuilder.Create()
+                    .WithIdentity(time.ToString() + "-trigger", "group")
+                    .ForJob(StandJob.Key)
+                    .WithCronSchedule(cronExpression)
+                    .UsingJobData("minutesStanding", minutesStanding)
 //                .StartAt(startTime)
 //                .EndAt(endTime)
-                .Build();
+                    .Build();
 
-            return await scheduler.ScheduleJob(job, trigger);
+                triggers.Add(trigger);
+            }
+
+            return triggers;
         }
     }
 }
