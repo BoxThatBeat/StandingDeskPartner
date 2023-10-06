@@ -10,7 +10,6 @@ namespace StandingDeskPartner
     /// </summary>
     public partial class SettingsView : Window
     {
-        public bool SettingsFinishedLoading = false;
 
         ISettingsRepo SettingsRepo { get; set; }
 
@@ -18,16 +17,7 @@ namespace StandingDeskPartner
         public SettingsView(ISettingsRepo repo)
         {
             InitializeComponent();
-            
             this.SettingsRepo = repo;
-
-            this.DataContext = new SettingsModel();
-        }
-
-        protected override async void OnContentRendered(EventArgs e)
-        {
-            this.DataContext = await this.SettingsRepo.GetSettingsAsync();
-            this.SettingsFinishedLoading = true;
         }
 
         private void AddNewStandingTime_Click(object sender, RoutedEventArgs e)
